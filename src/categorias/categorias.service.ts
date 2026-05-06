@@ -1,11 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Categoria } from './entities/categoria.entity';
 
 @Injectable()
 export class CategoriasService {
-  create(createCategoriaDto: CreateCategoriaDto) {
-    return 'This action adds a new categoria';
+  constructor(
+    @InjectModel(Categoria.name)
+    private readonly categoriaModel: Model<Categoria>,
+  ) {}
+
+  async create(createCategoriaDto: CreateCategoriaDto) {
+    createCategoriaDto.name = createCategoriaDto.name.toLocaleLowerCase();
+
+    const categoria = await this.categoriaModel.create(createCategoriaDto);
+    
+    return categoria;
   }
 
   findAll() {
