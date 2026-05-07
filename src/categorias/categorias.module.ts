@@ -3,7 +3,7 @@ import { CategoriasService } from './categorias.service';
 import { CategoriasController } from './categorias.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Categoria, CategoriaSchema } from './entities/categoria.entity';
-
+import { Producto, ProductoSchema } from '../productos/entities/producto.entity';
 
 @Module({
   controllers: [CategoriasController],
@@ -12,9 +12,14 @@ import { Categoria, CategoriaSchema } from './entities/categoria.entity';
     MongooseModule.forFeature([
       {
         name: Categoria.name,
-        schema: CategoriaSchema
-      }
-    ])
-  ]
+        schema: CategoriaSchema,
+      },
+      {
+        name: Producto.name,
+        schema: ProductoSchema,
+      },
+    ]),
+  ],
+  exports: [MongooseModule],
 })
 export class CategoriasModule {}
