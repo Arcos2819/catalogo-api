@@ -1,0 +1,15 @@
+info:
+  name: Eliminar_producto
+  type: http
+  seq: 3
+
+http:
+  method: DELETE
+  url: http://localhost:3000/api/productos
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
